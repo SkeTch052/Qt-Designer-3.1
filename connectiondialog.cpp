@@ -1,25 +1,34 @@
-#include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "connectiondialog.h"
+#include "ui_connectiondialog.h"
 #include <QMessageBox>
 #include <QApplication>
+#include <QPushButton>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+ConnectionDialog::ConnectionDialog(QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::ConnectionDialog)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Подключение к БД");
+    setWindowTitle("Подключение к БД");
     ui->sb_Port->setStyleSheet("QSpinBox::up-button, QSpinBox::down-button { width: 0; }");
-    ui->pb_SaveQString->setAutoDefault(true);
-    connect(ui->pb_Cancel, &QPushButton::clicked, this, &QWidget::close);
+    ui->sb_Port->setValue(5432);
 }
 
-MainWindow::~MainWindow()
+ConnectionDialog::~ConnectionDialog()
 {
     delete ui;
 }
 
-void MainWindow::on_pb_SaveQString_clicked()
+void ConnectionDialog::setButtonTexts()
+{
+    ui->dbb_Ok_Cancel->button(QDialogButtonBox::Cancel)->setText("Отмена");
+}
+
+void ConnectionDialog::on_dbb_Ok_Cancel_rejected(){
+    QApplication::exit(0);
+}
+
+void ConnectionDialog::on_dbb_Ok_Cancel_accepted()
 {
     QString host = ui->le_Host->text();
     QString dbName = ui->le_DB->text();
@@ -40,7 +49,6 @@ void MainWindow::on_pb_SaveQString_clicked()
     msgBox.setStandardButtons(QMessageBox::Ok);
 
     if (msgBox.exec() == QMessageBox::Ok) {
-        QApplication::quit();
+         QApplication::exit(0);
     }
 }
-
