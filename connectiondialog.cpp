@@ -24,10 +24,6 @@ void ConnectionDialog::setButtonTexts()
     ui->dbb_Ok_Cancel->button(QDialogButtonBox::Cancel)->setText("Отмена");
 }
 
-void ConnectionDialog::on_dbb_Ok_Cancel_rejected(){
-    QApplication::exit(0);
-}
-
 void ConnectionDialog::on_dbb_Ok_Cancel_accepted()
 {
     QString host = ui->le_Host->text();

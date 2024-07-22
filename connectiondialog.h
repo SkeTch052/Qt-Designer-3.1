@@ -19,7 +19,6 @@ public:
 
 private slots:
     void on_dbb_Ok_Cancel_accepted();
-    void on_dbb_Ok_Cancel_rejected();
 
 private:
     Ui::ConnectionDialog *ui;
